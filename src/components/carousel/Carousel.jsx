@@ -17,6 +17,16 @@ const Carousel = ({ data, loading }) => {
   const { url } = useSelector((state) => state.home);
   const navigate = useNavigate();
   const navigation = (dir) => {};
+  const slItem = () => {
+    <div className="skeletonItem">
+      <div className="posterBlock skeleton"></div>
+      <div className="textBlock">
+        <div className="title skeleton"></div>
+        <div className="date skeleton"></div>
+      </div>
+    </div>;
+  };
+
   return (
     <div className="carousel">
       <ContentWrapper>
@@ -39,12 +49,19 @@ const Carousel = ({ data, loading }) => {
                   <div className="posterBlock">
                     <Img src={posterUrl} />
                   </div>
+                  <div className="textBlock">
+                    <span className="title">{item.title || item.name}</span>
+                  </div>
+                  <div className="date">
+                    {dayjs(item.release_date).format("MMM D, YYYY") ||
+                      dayjs(item.first_air_date).format("MMM D, YYYY")}
+                  </div>
                 </div>
               );
             })}
           </div>
         ) : (
-          <span>loading...</span>
+          <div className="loadingSkeleton"></div>
         )}
       </ContentWrapper>
     </div>
